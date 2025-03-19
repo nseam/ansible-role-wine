@@ -22,8 +22,7 @@
   become: true
   when:
     - cmd_which_winetricks_res.rc != 0
-      or lsb_release_dist_id.stdout is defined
-    - lsb_release_dist_id.stdout in ["Ubuntu"]
+    - platform_name == "Ubuntu"
     - wine_winetricks_apt_install
 
 - name: Ensures Winetricks is present (via URL)
@@ -32,7 +31,7 @@
     force: false
     mode: "0755"
     url: '{{ wine_winetricks_url }}'
-  become: true
+  become: "{{ platform_name != 'Cygwin' }}"
   when:
     - cmd_which_winetricks_res.rc != 0  # Winetricks is not installed.
     - not wine_winetricks_apt_install

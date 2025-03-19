@@ -68,6 +68,7 @@
     - name: Ensures Wine package is present (Debian)
       ansible.builtin.apt:
         allow_unauthenticated: true
+        allow_downgrades: true
         autoclean: true
         install_recommends: "{{ 'yes' if wine_install_recommends else 'no' }}"
         name: '{{ item }}'
@@ -81,6 +82,7 @@
     - name: Ensures Wine package is present (Ubuntu)
       ansible.builtin.apt:
         allow_unauthenticated: true
+        allow_downgrades: true
         install_recommends: "{{ 'yes' if wine_install_recommends else 'no' }}"
         name: '{{ item }}'
         state: present
@@ -91,6 +93,7 @@
     - name: Ensures Wine package is present (non-Debian)
       ansible.builtin.apt:
         allow_unauthenticated: true
+        allow_downgrades: true
         install_recommends: "{{ 'yes' if wine_install_recommends else 'no' }}"
         name: '{{ item }}'
         state: present
@@ -122,7 +125,7 @@
         name: winetricks
         state: present
         update_cache: true
-      when: lsb_release_dist_id.stdout in ["Ubuntu"]
+      when: platform_name == "Ubuntu"
     - name: Ensures Winetricks is present via URL
       ansible.builtin.get_url:
         dest: /usr/local/bin/winetricks
