@@ -15,6 +15,15 @@ enable_list:
   # add yaml here if you want to avoid ignoring yaml checks when yamllint
   # library is missing. Normally its absence just skips using that rule.
   - yaml
+mock_modules:
+  - community.docker.docker_container
+  - community.docker.docker_container_info
+  - community.docker.docker_image
+  - community.general.apk
+  - community.general.from_ini
+  - community.general.supervisorctl
 mock_roles:
   - community.docker.docker_image
+  - ea31337.wine
+offline: true
 verbosity: 0
